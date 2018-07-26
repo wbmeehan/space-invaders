@@ -1,0 +1,13 @@
+{
+"companyName": "DefaultCompany",
+"productName": "Space Invaders",
+"dataUrl": "Space Invaders WebGL.data.unityweb",
+"asmCodeUrl": "Space Invaders WebGL.asm.code.unityweb",
+"asmMemoryUrl": "Space Invaders WebGL.asm.memory.unityweb",
+"asmFrameworkUrl": "Space Invaders WebGL.asm.framework.unityweb",
+"TOTAL_MEMORY": 268435456,
+"graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20"
+}
