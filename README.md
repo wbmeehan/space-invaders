@@ -3,7 +3,7 @@
 
 **[Play on Web!](https://wbmeehan.github.io/space-invaders/)**
 
-A Space Invaders game made in Unity.
+A Space Invaders clone made in Unity.
 
 Instructions:
 - Left and right arrow keys to move
