@@ -10,5 +10,38 @@ EditorBuildSettings:
     guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Level1.unity
+    guid: 13c5897e1a37d7f4289616870262f08f
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Level2.unity
+    guid: 7c55309150cf6824b8bb18d574c01f7b
+  - enabled: 0
+    path: Assets/__DELETED_GUID_Trash/6a649ae08901b2940bac14494cf0bdd2
+    guid: 6a649ae08901b2940bac14494cf0bdd2
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 3b4701a0bf4c04943a5ae78613430a0f
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: Assets/Scenes/Level10.unity
     guid: 75035d2a8f1bf634d9e0e599966012cc
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}

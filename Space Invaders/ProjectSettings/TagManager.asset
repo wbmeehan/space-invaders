@@ -13,6 +13,12 @@ TagManager:
   - OrangeInvader
   - BlueInvader
   - Invader
+  - AlienBullet
+  - BlueAlien
+  - RedAlien
+  - OrangeAlien
+  - GreenAlien
+  - InvaderBullet
   layers:
   - Default
   - TransparentFX

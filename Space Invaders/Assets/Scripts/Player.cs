@@ -22,11 +22,21 @@ public class Player : MonoBehaviour
     /* Time the last bullet was fired */
     private float timeLastShot;
 
+    public static Vector2 InitialPosition;
+
     #endregion
 
     public void Start()
     {
-       _rigidBody = GetComponent<Rigidbody2D>();
+        _rigidBody = GetComponent<Rigidbody2D>();
+        if (InitialPosition == Vector2.zero)
+        {
+            InitialPosition = transform.position;
+        }
+        else
+        {
+            transform.position = InitialPosition;
+        }
     }
 
     public void FixedUpdate()
@@ -59,8 +69,15 @@ public class Player : MonoBehaviour
 
     public void OnDestroy()
     {
-        GameOverManager.IsGameOver = true;
-        IsExploding = false;
+        if (IsExploding)
+        {
+            GameManager.IsGameOver = true;
+            IsExploding = false;
+        }
+        else
+        {
+            InitialPosition = transform.position;
+        }
     }
 
     /// <summary>
@@ -70,6 +87,6 @@ public class Player : MonoBehaviour
     private bool Recharged()
     {
         /* If 0.5 seconds has passed the weapon has recharged */
-        return Time.timeSinceLevelLoad >= (timeLastShot + 0.5f);
+        return Time.timeSinceLevelLoad >= (timeLastShot + 0.25f);
     }
 }

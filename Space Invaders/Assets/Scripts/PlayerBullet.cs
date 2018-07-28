@@ -12,7 +12,7 @@ public class PlayerBullet : MonoBehaviour
     public Sprite InvaderExplosion;
 
     /* Speed */
-    public float Speed = 30;
+    public float Speed = 100;
 
     /* Rigid body */
     private Rigidbody2D _rigidBody;
@@ -21,7 +21,7 @@ public class PlayerBullet : MonoBehaviour
 
     public void Start()
     {
-       _rigidBody = GetComponent<Rigidbody2D>();
+        _rigidBody = GetComponent<Rigidbody2D>();
        _rigidBody.velocity = Vector2.up * Speed;
     }
 
@@ -87,9 +87,6 @@ public class PlayerBullet : MonoBehaviour
     /// <param name="pointsAwarded">Points increment.</param>
     public void IncrementScore(int pointsAwarded)
     {
-        var scoreDisplay = GameObject.Find("Score").GetComponent<Text>();
-        int score = int.Parse(scoreDisplay.text);
-        score += pointsAwarded;
-        scoreDisplay.text = score.ToString();
+        GameManager.Score += pointsAwarded;
     }
 }

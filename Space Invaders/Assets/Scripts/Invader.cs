@@ -1,7 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Accord.Statistics.Distributions.Univariate;
 
 public class Invader : MonoBehaviour
 {
@@ -29,7 +28,7 @@ public class Invader : MonoBehaviour
     public SpriteRenderer SpriteRenderer;
 
     /* Number of invaders */
-    private const int NumInvaders = 44;
+    private const int NumInvaders = 40;
 
     /* Death count */
     private static int _invaderDeathCount;
@@ -43,15 +42,13 @@ public class Invader : MonoBehaviour
     /* Generated random firing interval for a single shot */
     private float _generatedFiringInterval;
 
-    /* Range for random firing interval */
-    private float _minFiringInterval = 1.0f;
-    private float _maxFiringInterval = 4.0f;
+    private bool _firstShotFired;
 
-    /* Has the invader made its first shot? */
-    private bool _firstShot = true;
 
     /* Animation seconds/frame */
     private float _invaderFrameUpdateInterval = 0.5f;
+
+    private GameManager _gameManager;
 
     #endregion
 
@@ -63,6 +60,8 @@ public class Invader : MonoBehaviour
         _initialPosition = transform.position;
         SpriteRenderer = GetComponent<SpriteRenderer>();
         StartCoroutine(UpdateAlienFrame());
+        _gameManager = FindObjectOfType<GameManager>();
+        Speed += 3 * (GameManager.Level - 1);
     }
 
     public void OnCollisionEnter2D(Collision2D collider)
@@ -88,10 +87,7 @@ public class Invader : MonoBehaviour
         /* Check if collided into bottom wall */
         if (collider.gameObject.name == "BottomWall")
         {
-           SpriteRenderer.sprite = InvaderExplosion;
-            SoundManager.Instance.PlayAudioClip(
-               SoundManager.Instance.InvaderKilled);
-            Destroy(gameObject, 0.5f);
+            GameManager.IsGameOver = true;
         }
 
         /* Check if collided into player */
@@ -102,26 +98,26 @@ public class Invader : MonoBehaviour
             SoundManager.Instance.PlayAudioClip(
                 SoundManager.Instance.PlayerExplosion);
             collider.gameObject.GetComponent<SpriteRenderer>().sprite = PlayerExplosion;
+            Player.IsExploding = true;
         }
     }
 
     public void FixedUpdate()
     {
-        /* Check if this is the first shot fired */
-        if (_firstShot == true)
-        {
-            _firstShot = false;
-            /* Generate the delay before the next shot */
-            _generatedFiringInterval = _minFiringInterval +
-                Random.Range(_minFiringInterval, _maxFiringInterval);
-        }
 
-        /* Check if generated firing delay has passed */
-        if (Time.timeSinceLevelLoad > _generatedFiringInterval)
+        if (!_firstShotFired)
         {
             /* Generate the next delay */
-            _generatedFiringInterval += _minFiringInterval +
-                Random.Range(_minFiringInterval, _maxFiringInterval);
+            var random = new GeneralizedParetoDistribution(0.2, 23, -0.05);
+            _generatedFiringInterval = (float)random.Generate();
+            _firstShotFired = true;
+        }
+        else if (Time.timeSinceLevelLoad > _generatedFiringInterval)
+        {
+                /* Check if generated firing delay has passed */
+                /* Generate the next delay */
+            var random = new GeneralizedParetoDistribution(0.2, 23, -0.05);
+            _generatedFiringInterval += (float)random.Generate();
             /* Fire bullet */
             Instantiate(AlienBullet, transform.position, Quaternion.identity);
         }
@@ -161,10 +157,16 @@ public class Invader : MonoBehaviour
         /* Increment alien death count as alien has died */
         _invaderDeathCount++;
         /* Check if all the aliens are dead */
-        if (_invaderDeathCount >= NumInvaders)
+        //if (_invaderDeathCount >= NumInvaders)
+        //{
+        //    /* If all the aliens are dead signal game over */
+        //    //GameOverManager.IsGameOver = true;
+
+        //    GameObject.FindObjectOfType<GameManager>().LoadLevel();
+        //}
+        if (_invaderDeathCount >= NumInvaders && !GameManager.IsGameOver)
         {
-            /* If all the aliens are dead signal game over */
-            GameOverManager.IsGameOver = true;
+            _gameManager.LoadLevel();
         }
     }
 
@@ -188,4 +190,5 @@ public class Invader : MonoBehaviour
             yield return new WaitForSeconds(_invaderFrameUpdateInterval);
         }
     }
+
 }
