@@ -9,7 +9,7 @@ public class InvaderBullet : MonoBehaviour
     /* Player explosion animation frame */
     public Sprite PlayerExplosion;
     /* Speed */
-    public float Speed = 7;
+    public float Speed = 40;
     /* Rigid body */
     private Rigidbody2D _rigidBody;
 
