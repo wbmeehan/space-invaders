@@ -1,5 +1,5 @@
 # Space Invaders
-<img src="https://user-images.githubusercontent.com/40670706/43240666-ef7461f8-90da-11e8-8db2-81579650f273.JPG" width="500">
+<img src="https://user-images.githubusercontent.com/40670706/43356209-adc46ba0-92af-11e8-8580-7f928d1897bd.JPG" width="500">
 
 **[Play on Web!](https://wbmeehan.github.io/space-invaders/)**
 
